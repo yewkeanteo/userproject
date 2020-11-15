@@ -46,7 +46,7 @@ project_name = os.path.basename(os.path.dirname(os.path.dirname(os.getcwd())))
 # Select which line to uncomment based on what your project needs, or alter as required.
 chaste_libs_used = ['core']
 #chaste_libs_used = ['cell_based']
-#chaste_libs_used = ['heart']
+chaste_libs_used = ['heart']
 #chaste_libs_used = ['cell_based', 'heart']
 
 # Do the build magic

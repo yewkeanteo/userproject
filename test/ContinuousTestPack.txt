@@ -1,1 +1,4 @@
 TestHello.hpp
+UserBidomainTutorial.hpp
+BathTutorial.hpp
+

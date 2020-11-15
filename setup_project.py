@@ -85,7 +85,7 @@ def main():
     find_and_replace(test_cmakelists, 'chaste_do_test_project(template_project', 'chaste_do_test_project(' + project_name)
 
     # Amend the components
-    components_list = []
+    components_list = ['heart']
 
     if ask_for_response("Does this project depend on the cell_based component? [Y/n] "):
         components_list.append('cell_based')
