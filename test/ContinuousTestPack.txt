@@ -2,3 +2,5 @@ TestHello.hpp
 UserBidomainTutorial.hpp
 BathTutorial.hpp
 TestHdf5Text.hpp
+CellFactoryBathTutorial.hpp
+

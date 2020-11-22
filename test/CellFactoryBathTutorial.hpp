@@ -44,9 +44,9 @@ public: // Tests should be public!
     {
         DistributedTetrahedralMesh<2,2> mesh;
         double h=0.02;
-        mesh.ConstructRegularSlabMesh(h, 0.8 /*length*/, 0.3 /*width*//*, 0.3*? /*depth*/);
+        mesh.ConstructRegularSlabMesh(h, 0.8 /*length*/, 0.3 /*width*/ /*, 0.3*/ /*depth*/);
 		
-        /*HeartConfig::Instance()->SetOutputUsingOriginalNodeOrdering(true);*/
+        HeartConfig::Instance()->SetOutputUsingOriginalNodeOrdering(true);
 		HeartConfig::Instance()->SetSimulationDuration(5.0);  //ms
         HeartConfig::Instance()->SetOutputDirectory("BathTutorialCellFactory");
         HeartConfig::Instance()->SetOutputFilenamePrefix("BathResultsCellFactory");
