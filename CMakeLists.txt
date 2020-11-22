@@ -44,6 +44,7 @@
 
 # Here we just depend on core components (nothing application-specific).
 find_package(Chaste COMPONENTS heart)
+find_package(Chaste COMPONENTS pde)
 
 
 # Alternatively, to specify a Chaste installation directory use a line like that below.
