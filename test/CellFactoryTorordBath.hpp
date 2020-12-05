@@ -43,8 +43,8 @@ public: // Tests should be public!
     void TestWithBathAndElectrodes()
     {
         HeartConfig::Instance()->SetSimulationDuration(3.0);  //ms
-        HeartConfig::Instance()->SetOutputDirectory("CellFactoryTutorial");
-        HeartConfig::Instance()->SetOutputFilenamePrefix("CellFactoryTutorialResults");
+        HeartConfig::Instance()->SetOutputDirectory("CellFactoryToRORd");
+        HeartConfig::Instance()->SetOutputFilenamePrefix("CellFactoryToRORdResults");
 		HeartConfig::Instance()->SetVisualizeWithVtk(true);
 		
 		HeartConfig::Instance()->SetOdePdeAndPrintingTimeSteps(0.0001, 0.01, 0.1);
