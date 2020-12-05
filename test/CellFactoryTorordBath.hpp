@@ -2,7 +2,7 @@
 #include "BidomainProblem.hpp"
 /*#include "PlaneStimulusCellFactory.hpp"*/
 
-#include "LuoRudy1991.hpp"
+#include "ToRORddynClmid.hpp"
 #include "SimpleStimulus.hpp"
 #include "PetscSetupAndFinalize.hpp"
 #include "TetrahedralMesh.hpp"
@@ -27,11 +27,11 @@ public:
 
         if ((x<0.1+1e-6) && (y<0.1+1e-6) )
         {
-            return new CellLuoRudy1991FromCellML(mpSolver, mpZeroStimulus);
+            return new CellToRORddynClmidFromCellML(mpSolver, mpZeroStimulus);
         }
         else
         {
-            return new CellLuoRudy1991FromCellML(mpSolver, mpZeroStimulus);
+            return new CellToRORddynClmidFromCellML(mpSolver, mpZeroStimulus);
         }
     }
 };

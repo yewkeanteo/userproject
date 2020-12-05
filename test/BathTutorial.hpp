@@ -75,16 +75,28 @@ public: // Tests should be public!
 		
         // For default conductivities and explicit cell model -1e4 is under threshold, -1.4e4 too high - crashes the cell model
         // For heterogeneous conductivities as given, -1e4 is under threshold
-        double magnitude = -15.5e3; // uA/cm^2
+        double magnitude = -14.0e3; // uA/cm^2
         double start_time = 0.0;
-        double duration = 1; //ms
+        double duration = 0.5; //ms
 		
         HeartConfig::Instance()->SetElectrodeParameters(false, 0, magnitude, start_time, duration);
 		
         BidomainProblem<2> bidomain_problem( &cell_factory, true );
 
         bidomain_problem.SetMesh(&mesh);
+		
+		bool partial_output = true;
+        if (partial_output)
+        {
+            std::vector<unsigned> nodes_to_be_output;
+            nodes_to_be_output.push_back(0);
+            nodes_to_be_output.push_back((unsigned)round( (mesh.GetNumNodes()-1)/2 ));
+            nodes_to_be_output.push_back(mesh.GetNumNodes()-1);
+            bidomain_problem.SetOutputNodes(nodes_to_be_output);
+        }
 
+		bidomain_problem.SetWriteInfo();
+		 
         bidomain_problem.Initialise();
         bidomain_problem.Solve();
 
