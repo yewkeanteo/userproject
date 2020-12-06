@@ -39,7 +39,8 @@ public:
             p_cell = new CellToRORddynClmidFromCellMLCvode(p_empty_solver, mpZeroStimulus);
         }
         p_cell->SetTolerances(1e-5,1e-7);
-
+		//Change conductance of cell 
+		p_cell->SetParameter("membrane_fast_sodium_current_conductance", 0);
         return p_cell;
     }
 };
