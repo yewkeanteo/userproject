@@ -49,6 +49,10 @@ chaste_libs_used = ['core']
 chaste_libs_used = ['heart']
 #chaste_libs_used = ['cell_based', 'heart']
 
+# Change some flags just for this project 
+env = SConsTools.CloneEnv(env) 
+env['CODEGEN_EXTRA_ARGS'] = ['--use-modifiers'] 
+
 # Do the build magic
 result = SConsTools.DoProjectSConscript(project_name, chaste_libs_used, globals())
 Return("result")
