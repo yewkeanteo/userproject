@@ -47,7 +47,7 @@ public:
 		else
 		{
 			//Change conductance of cell factory (right side)
-			//p_cell->SetParameter("membrane_fast_sodium_current_conductance", 0);
+			p_cell->SetParameter("membrane_fast_sodium_current_conductance", 0);
 		}
         return p_cell;
     }
@@ -142,7 +142,7 @@ public: // Tests should be public!
 
         bidomain_problem.SetMesh(&mesh);
 		
-		/*output to hdf5 file*/
+		/*output to hdf5 file, set to false to not output*/
 		bool partial_output = false;
         if (partial_output)
         {
