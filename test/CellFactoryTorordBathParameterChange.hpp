@@ -40,7 +40,11 @@ public:
         }
         p_cell->SetTolerances(1e-5,1e-7);
 		//Change conductance of cell 
+<<<<<<< HEAD
 		//p_cell->SetParameter("membrane_fast_sodium_current_conductance", 0);
+=======
+		p_cell->SetParameter("membrane_fast_sodium_current_conductance", 0);
+>>>>>>> 3fd4aa167ecb63e24ec7edf7e0cc106f5bfb3837
         return p_cell;
     }
 };
