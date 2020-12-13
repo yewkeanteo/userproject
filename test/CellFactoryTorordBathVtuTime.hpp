@@ -58,11 +58,11 @@ public: // Tests should be public!
         HeartConfig::Instance()->SetOutputUsingOriginalNodeOrdering(true);
 		
         HeartConfig::Instance()->SetSimulationDuration(3.0);  //ms
-        HeartConfig::Instance()->SetOutputDirectory("CellFactoryToRORd");
-        HeartConfig::Instance()->SetOutputFilenamePrefix("CellFactoryToRORdResults");
+        HeartConfig::Instance()->SetOutputDirectory("Test");
+        HeartConfig::Instance()->SetOutputFilenamePrefix("Original");
 		HeartConfig::Instance()->SetVisualizeWithVtk(true);
 		
-		HeartConfig::Instance()->SetOdePdeAndPrintingTimeSteps(0.0001, 0.01, 0.1);
+		HeartConfig::Instance()->SetOdePdeAndPrintingTimeSteps(0.0001, 0.01, 0.01);
 
 	
         /*PlaneStimulusCellFactory<CellToRORddynClmidFromCellML,2> cell_factory(0.0);
@@ -134,7 +134,8 @@ public: // Tests should be public!
 
         bidomain_problem.SetMesh(&mesh);
 		
-		bool partial_output = true;
+		/*output to hdf5 file*/
+		bool partial_output = false;
         if (partial_output)
         {
             std::vector<unsigned> nodes_to_be_output;

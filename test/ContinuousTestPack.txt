@@ -5,3 +5,4 @@ TestHdf5Text.hpp
 CellFactoryBathTutorial.hpp
 CellFactoryTorordBath.hpp
 CellFactoryTorordBathParameterChange.hpp
+CellFactoryTorordBathVtuTime.hpp
