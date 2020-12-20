@@ -39,7 +39,7 @@ public:
             p_cell = new CellToRORddynClmidFromCellMLCvode(p_empty_solver, mpZeroStimulus);
         }
         p_cell->SetTolerances(1e-5,1e-7);
-		if (x<0.4)
+		if (x<0.2)
 		{
 			//Change conductance of cell factory (left side)
 			//p_cell->SetParameter("membrane_fast_sodium_current_conductance", 0);
@@ -62,10 +62,10 @@ public: // Tests should be public!
 		/*Generate a Mesh Here*/
 		DistributedTetrahedralMesh<2,2> mesh;
         double h=0.02;
-        mesh.ConstructRegularSlabMesh(h, 0.8 /*length*/, 0.3 /*width*/);
+        mesh.ConstructRegularSlabMesh(h, 0.4 /*length*/, 0.4 /*width*/);
         HeartConfig::Instance()->SetOutputUsingOriginalNodeOrdering(true);
 		
-        HeartConfig::Instance()->SetSimulationDuration(3.0);  //ms
+        HeartConfig::Instance()->SetSimulationDuration(6.0);  //ms
         HeartConfig::Instance()->SetOutputDirectory("Test");
         HeartConfig::Instance()->SetOutputFilenamePrefix("Original");
 		HeartConfig::Instance()->SetVisualizeWithVtk(true);
@@ -87,8 +87,8 @@ public: // Tests should be public!
         std::set<unsigned> bath_ids;
         static unsigned bath_id1=1;
         bath_ids.insert(bath_id1);
-        static unsigned bath_id2=2;
-        bath_ids.insert(bath_id2);
+        //static unsigned bath_id2=2;
+        //bath_ids.insert(bath_id2);
 
         HeartConfig::Instance()->SetTissueAndBathIdentifiers(tissue_ids, bath_ids);
 
@@ -98,18 +98,10 @@ public: // Tests should be public!
         {
             double x = iter->CalculateCentroid()[0];
             double y = iter->CalculateCentroid()[1];
-            if (sqrt((x-0.05)*(x-0.05) + (y-0.05)*(y-0.05)) > 0.02)
+            if (sqrt((x-0.2)*(x-0.2) + (y-0.2)*(y-0.2)) > 0.1)
             {
-                if (y<0.05)
-                {
                     //Outside circle on the bottom
                     iter->SetAttribute(bath_id1);
-                }
-                else
-                {
-                    //Outside circle on the top
-                    iter->SetAttribute(bath_id2);
-                }
             }
             else
             {
@@ -121,15 +113,15 @@ public: // Tests should be public!
         mesh.SetMeshHasChangedSinceLoading();
 
         HeartConfig::Instance()->SetBathConductivity(7.0);  //bath_id1 tags will take the default value (actually 7.0 is the default)
-        std::map<unsigned, double> multiple_bath_conductivities;
-        multiple_bath_conductivities[bath_id2] = 6.5;  // mS/cm
+        //std::map<unsigned, double> multiple_bath_conductivities;
+        //multiple_bath_conductivities[bath_id2] = 6.5;  // mS/cm
 		
-        HeartConfig::Instance()->SetBathMultipleConductivities(multiple_bath_conductivities);
+        //HeartConfig::Instance()->SetBathMultipleConductivities(multiple_bath_conductivities);
 		
         // For default conductivities and explicit cell model -1e4 is under threshold, -1.4e4 too high - crashes the cell model
         // For heterogeneous conductivities as given, -1e4 is under threshold
         double magnitude = -20.0e3; // uA/cm^2
-        double start_time = 0.0;
+        double start_time = 1.0;
         double duration = 1; //ms
 		
         HeartConfig::Instance()->SetElectrodeParameters(false, 0, magnitude, start_time, duration);

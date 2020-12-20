@@ -75,9 +75,9 @@ public: // Tests should be public!
 		
         // For default conductivities and explicit cell model -1e4 is under threshold, -1.4e4 too high - crashes the cell model
         // For heterogeneous conductivities as given, -1e4 is under threshold
-        double magnitude = -14.0e3; // uA/cm^2
+        double magnitude = -15.5e3; // uA/cm^2
         double start_time = 0.0;
-        double duration = 0.5; //ms
+        double duration = 1; //ms
 		
         HeartConfig::Instance()->SetElectrodeParameters(false, 0, magnitude, start_time, duration);
 		
