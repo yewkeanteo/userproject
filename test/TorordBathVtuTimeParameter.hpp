@@ -47,7 +47,7 @@ public:
 		else
 		{
 			//Change conductance of cell factory (right side)
-			p_cell->SetParameter("membrane_fast_sodium_current_conductance", 0);
+			//p_cell->SetParameter("membrane_fast_sodium_current_conductance", 0);
 		}
         return p_cell;
     }
@@ -65,12 +65,12 @@ public: // Tests should be public!
         mesh.ConstructRegularSlabMesh(h, 0.4 /*length*/, 0.4 /*width*/);
         HeartConfig::Instance()->SetOutputUsingOriginalNodeOrdering(true);
 		
-        HeartConfig::Instance()->SetSimulationDuration(6.0);  //ms
+        HeartConfig::Instance()->SetSimulationDuration(1000.0);  //ms
         HeartConfig::Instance()->SetOutputDirectory("Test");
         HeartConfig::Instance()->SetOutputFilenamePrefix("Original");
 		HeartConfig::Instance()->SetVisualizeWithVtk(true);
 		
-		HeartConfig::Instance()->SetOdePdeAndPrintingTimeSteps(0.0001, 0.01, 0.01);
+		HeartConfig::Instance()->SetOdePdeAndPrintingTimeSteps(0.0001, 0.01, 0.1);
 
 	
         /*PlaneStimulusCellFactory<CellToRORddynClmidFromCellML,2> cell_factory(0.0);
@@ -156,7 +156,7 @@ public: // Tests should be public!
 		HeartEventHandler::Headings();
 		HeartEventHandler::Headings();
 		
-        bool ap_triggered = false;
+        /*bool ap_triggered = false;
         for (AbstractTetrahedralMesh<2,2>::NodeIterator iter = mesh.GetNodeIteratorBegin();
              iter != mesh.GetNodeIteratorEnd();
              ++iter)
@@ -170,5 +170,6 @@ public: // Tests should be public!
             }
         }
         TS_ASSERT(ap_triggered);
+		*/
     }
 };
