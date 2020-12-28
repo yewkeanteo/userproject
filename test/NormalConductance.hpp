@@ -66,8 +66,8 @@ public: // Tests should be public!
         HeartConfig::Instance()->SetOutputUsingOriginalNodeOrdering(true);
 		
         HeartConfig::Instance()->SetSimulationDuration(1000.0);  //ms
-        HeartConfig::Instance()->SetOutputDirectory("NormalConductance");
-        HeartConfig::Instance()->SetOutputFilenamePrefix("NormalConductance");
+        HeartConfig::Instance()->SetOutputDirectory("NormalConductance2");
+        HeartConfig::Instance()->SetOutputFilenamePrefix("NormalConductance2");
 		HeartConfig::Instance()->SetVisualizeWithVtk(true);
 		
 		HeartConfig::Instance()->SetOdePdeAndPrintingTimeSteps(0.0001, 0.01, 0.1);
