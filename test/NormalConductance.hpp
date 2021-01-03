@@ -173,3 +173,4 @@ public: // Tests should be public!
 		*/
     }
 };
+

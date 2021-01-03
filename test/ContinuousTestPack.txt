@@ -8,4 +8,5 @@ CellFactoryTorordBathParameterChange.hpp
 CellFactoryTorordBathVtuTime.hpp
 TorordBathVtuTimeParameter.hpp
 NormalConductance.hpp
+NormalWithConductionVelocity.hpp
 ZeroConductance.hpp
