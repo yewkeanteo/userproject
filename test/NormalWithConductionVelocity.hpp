@@ -255,9 +255,9 @@ public:
      * @param globalFarNodeIndex  The cell to measure to.
      * @param euclideanDistance  The distance the AP travels between the cells, along the tissue.
      */
-    double CalculateConductionVelocity(unsigned 58
-                                       unsigned 62,
-                                       const double 0.04);
+    double CalculateConductionVelocity(unsigned globalNearNodeIndex,
+                                       unsigned globalFarNodeIndex,
+                                       const double euclideanDistance);
 
      /**
      * @return all the conduction velocities between two cells, i.e. the time
