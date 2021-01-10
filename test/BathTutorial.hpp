@@ -134,6 +134,8 @@ public: // Tests should be public!
 };
 #ifndef _PROPAGATIONPROPERTIESCALCULATOR_HPP_
 #define _PROPAGATIONPROPERTIESCALCULATOR_HPP_
+#include "Hdf5DataReader.hpp"
+#include <string>
 class PropagationPropertiesCalculator
 {
 private:

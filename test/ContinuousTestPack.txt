@@ -10,3 +10,6 @@ TorordBathVtuTimeParameter.hpp
 NormalConductance.hpp
 NormalWithConductionVelocity.hpp
 ZeroConductance.hpp
+TPPC.hpp
+TPPCNormal.hpp
+TPPCZero.hpp
