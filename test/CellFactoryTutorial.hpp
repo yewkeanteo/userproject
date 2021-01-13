@@ -66,7 +66,7 @@ public:
 
         monodomain_problem.SetWriteInfo();
 
-        monodomain_problem.Initialise();
+        monodomain_problem.Initialise();                                                                                         
         monodomain_problem.Solve();
 
         /*ReplicatableVector voltage(monodomain_problem.GetSolution());
