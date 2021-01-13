@@ -71,7 +71,9 @@ public: // Tests should be public!
         HeartConfig::Instance()->SetOutputFilenamePrefix("ZeroConductance2");
 		HeartConfig::Instance()->SetVisualizeWithVtk(true);
 		
-		HeartConfig::Instance()->SetOdePdeAndPrintingTimeSteps(0.0001, 0.0001, 0.001);
+		HeartConfig::Instance()->SetOdePdeAndPrintingTimeSteps(0.0001, 0.0001, 0.001); 
+		// CVODE will take as many adaptive internal timesteps as it requires each time it is called, 
+		// so we should just call it once per PDE timestep - i.e. set the ODE and PDE timesteps to be the same.
 		
 		// Original bidomain bath code
 		std::set<unsigned> tissue_ids;
