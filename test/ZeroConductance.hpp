@@ -60,8 +60,8 @@ public: // Tests should be public!
 
     void TestWithBathAndElectrodes()
     {
-		/*Generate a Mesh Here*/
-		DistributedTetrahedralMesh<2,2> mesh;
+	/*Generate a Mesh Here*/
+	DistributedTetrahedralMesh<2,2> mesh;
         double h=0.02;
         mesh.ConstructRegularSlabMesh(h, 0.4 /*length*/, 0.4 /*width*/);
         HeartConfig::Instance()->SetOutputUsingOriginalNodeOrdering(true);
@@ -69,14 +69,14 @@ public: // Tests should be public!
         HeartConfig::Instance()->SetSimulationDuration(1000.0);  //ms
         HeartConfig::Instance()->SetOutputDirectory("ZeroConductance2");
         HeartConfig::Instance()->SetOutputFilenamePrefix("ZeroConductance2");
-		HeartConfig::Instance()->SetVisualizeWithVtk(true);
+	HeartConfig::Instance()->SetVisualizeWithVtk(true);
 		
-		HeartConfig::Instance()->SetOdePdeAndPrintingTimeSteps(0.0001, 0.0001, 0.001); 
-		// CVODE will take as many adaptive internal timesteps as it requires each time it is called, 
-		// so we should just call it once per PDE timestep - i.e. set the ODE and PDE timesteps to be the same.
+	HeartConfig::Instance()->SetOdePdeAndPrintingTimeSteps(0.0001, 0.0001, 0.001); 
+	// CVODE will take as many adaptive internal timesteps as it requires each time it is called, 
+	// so we should just call it once per PDE timestep - i.e. set the ODE and PDE timesteps to be the same.
 		
-		// Original bidomain bath code
-		std::set<unsigned> tissue_ids;
+	// Original bidomain bath code
+	std::set<unsigned> tissue_ids;
         static unsigned tissue_id=0;
         tissue_ids.insert(tissue_id);
 
@@ -121,7 +121,7 @@ public: // Tests should be public!
 		/*Create the problem class*/
         BidomainProblem<2> bidomain_problem( &cell_factory, true);  // Create problem class with pointer to cell factory and pass true to indicate we are solving it
         bidomain_problem.SetMesh(&mesh); // Sets mesh and electrodes
-		bidomain_problem.SetWriteInfo(); 
+	bidomain_problem.SetWriteInfo(); 
 		 
         bidomain_problem.Initialise(); // Initialise and Solve
         bidomain_problem.Solve();
@@ -129,8 +129,8 @@ public: // Tests should be public!
         Vec solution = bidomain_problem.GetSolution(); // the Vs and phi_e's, as a PetSc vector
         ReplicatableVector solution_repl(solution);
 		
-		HeartEventHandler::Headings();
-		HeartEventHandler::Headings();
+	HeartEventHandler::Headings();
+	HeartEventHandler::Headings();
 		
         /*bool ap_triggered = false;
         for (AbstractTetrahedralMesh<2,2>::NodeIterator iter = mesh.GetNodeIteratorBegin();
