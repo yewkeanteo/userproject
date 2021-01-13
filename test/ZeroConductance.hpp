@@ -3,20 +3,21 @@
 #include "CellProperties.hpp"
 #include "AbstractCvodeCell.hpp"
 
-#include "ToRORddynClmidCvode.hpp"
+#include "ToRORddynClmidCvode.hpp" // Imports the native CVODE version of the cell model.
 #include "SimpleStimulus.hpp"
 #include "PetscSetupAndFinalize.hpp"
 #include "TetrahedralMesh.hpp"
 #include <cmath>
+#ifdef CHASTE_CVODE
 
-class CustomCellFactory : public AbstractCardiacCellFactory<2> // <3> here
+class CustomCellFactory : public AbstractCardiacCellFactory<2> // <2> for 2D simulation.
 {
 private:
     boost::shared_ptr<SimpleStimulus> mpStimulus;
 
 public:
-    CustomCellFactory()
-        : AbstractCardiacCellFactory<2>(), // <3> here as well!
+    CustomCellFactory() // Defining a cell factory as input
+        : AbstractCardiacCellFactory<2>(), // <2> for 2D simulation.
           mpStimulus(new SimpleStimulus(-0, 2))
     {
     }
@@ -28,9 +29,8 @@ public:
 
         double x = pNode->rGetLocation()[0];
         double y = pNode->rGetLocation()[1];
-        //double z = pNode->rGetLocation()[2];
 
-        if ((x<0.1+1e-6) && (y<0.1+1e-6) /*&& (z<0.1+1e-6)*/)
+        if ((x<0.1+1e-6) && (y<0.1+1e-6)) //Zero Stimulus to the cell as the cell is sto be stimulated from through the bath.
         {
             p_cell = new CellToRORddynClmidFromCellMLCvode(p_empty_solver, mpZeroStimulus);
         }
@@ -41,8 +41,7 @@ public:
         p_cell->SetTolerances(1e-5,1e-7);
 		if (x<0.2)
 		{
-			//Change conductance of cell factory (left side)
-			//p_cell->SetParameter("membrane_fast_sodium_current_conductance", 0);
+			//No change to conductance of cell factory (left side)
 		}
 		else
 		{
@@ -52,6 +51,8 @@ public:
         return p_cell;
     }
 };
+
+#endif // CHASTE_CVODE
 
 class TestBidomainWithBathTutorial : public CxxTest::TestSuite
 {
@@ -70,14 +71,7 @@ public: // Tests should be public!
         HeartConfig::Instance()->SetOutputFilenamePrefix("ZeroConductance2");
 		HeartConfig::Instance()->SetVisualizeWithVtk(true);
 		
-		HeartConfig::Instance()->SetOdePdeAndPrintingTimeSteps(0.0001, 0.01, 0.1);
-
-	
-        /*PlaneStimulusCellFactory<CellToRORddynClmidFromCellML,2> cell_factory(0.0);
-
-        TrianglesMeshReader<2,2> reader("mesh/test/data/2D_0_to_1mm_400_elements");
-        DistributedTetrahedralMesh<2,2> mesh;
-        mesh.ConstructFromMeshReader(reader);*/
+		HeartConfig::Instance()->SetOdePdeAndPrintingTimeSteps(0.0001, 0.0001, 0.001);
 		
 		// Original bidomain bath code
 		std::set<unsigned> tissue_ids;
@@ -87,11 +81,9 @@ public: // Tests should be public!
         std::set<unsigned> bath_ids;
         static unsigned bath_id1=1;
         bath_ids.insert(bath_id1);
-        //static unsigned bath_id2=2;
-        //bath_ids.insert(bath_id2);
 
         HeartConfig::Instance()->SetTissueAndBathIdentifiers(tissue_ids, bath_ids);
-
+		// from the center, we set those more than 0.1 to be the bath elements
         for (AbstractTetrahedralMesh<2,2>::ElementIterator iter = mesh.GetElementIteratorBegin();
              iter != mesh.GetElementIteratorEnd();
              ++iter)
@@ -110,44 +102,26 @@ public: // Tests should be public!
             }
         }
 
-        mesh.SetMeshHasChangedSinceLoading();
+        mesh.SetMeshHasChangedSinceLoading(); // Inform Chaste of the fact that we have modified the mesh by setting element attributes.
 
         HeartConfig::Instance()->SetBathConductivity(7.0);  //bath_id1 tags will take the default value (actually 7.0 is the default)
-        //std::map<unsigned, double> multiple_bath_conductivities;
-        //multiple_bath_conductivities[bath_id2] = 6.5;  // mS/cm
 		
         //HeartConfig::Instance()->SetBathMultipleConductivities(multiple_bath_conductivities);
-		
-        // For default conductivities and explicit cell model -1e4 is under threshold, -1.4e4 too high - crashes the cell model
-        // For heterogeneous conductivities as given, -1e4 is under threshold
+
         double magnitude = -20.0e3; // uA/cm^2
         double start_time = 1.0;
-        double duration = 1; //ms
+        double duration = 100; //ms
 		
         HeartConfig::Instance()->SetElectrodeParameters(false, 0, magnitude, start_time, duration);
-		
 		
 		CustomCellFactory cell_factory;
 		
 		/*Create the problem class*/
-        BidomainProblem<2> bidomain_problem( &cell_factory, true);
-
-        bidomain_problem.SetMesh(&mesh);
-		
-		/*output to hdf5 file, set to false to not output*/
-		bool partial_output = false;
-        if (partial_output)
-        {
-            std::vector<unsigned> nodes_to_be_output;
-            nodes_to_be_output.push_back(0);
-            nodes_to_be_output.push_back((unsigned)round( (mesh.GetNumNodes()-1)/2 ));
-            nodes_to_be_output.push_back(mesh.GetNumNodes()-1);
-            bidomain_problem.SetOutputNodes(nodes_to_be_output);
-        }
-
-		bidomain_problem.SetWriteInfo();
+        BidomainProblem<2> bidomain_problem( &cell_factory, true);  // Create problem class with pointer to cell factory and pass true to indicate we are solving it
+        bidomain_problem.SetMesh(&mesh); // Sets mesh and electrodes
+		bidomain_problem.SetWriteInfo(); 
 		 
-        bidomain_problem.Initialise();
+        bidomain_problem.Initialise(); // Initialise and Solve
         bidomain_problem.Solve();
 
         Vec solution = bidomain_problem.GetSolution(); // the Vs and phi_e's, as a PetSc vector
