@@ -111,8 +111,8 @@ public: // Tests should be public!
         //HeartConfig::Instance()->SetBathMultipleConductivities(multiple_bath_conductivities);
 
         double magnitude = -20.0e3; // uA/cm^2
-        double start_time = 1.0;
-        double duration = 100; //ms
+        double start_time = 1000.0;
+        double duration = 1; //ms
 		
         HeartConfig::Instance()->SetElectrodeParameters(false, 0, magnitude, start_time, duration);
 		
