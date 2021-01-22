@@ -8,8 +8,6 @@
 #include "PetscSetupAndFinalize.hpp"
 #include "TetrahedralMesh.hpp"
 #include <cmath>
-#ifdef CHASTE_CVODE
-
 class CustomCellFactory : public AbstractCardiacCellFactory<2> // <2> for 2D simulation.
 {
 private:
@@ -52,8 +50,6 @@ public:
     }
 };
 
-#endif // CHASTE_CVODE
-
 class TestBidomainWithBathTutorial : public CxxTest::TestSuite
 {
 public: // Tests should be public!
@@ -66,12 +62,12 @@ public: // Tests should be public!
         mesh.ConstructRegularSlabMesh(h, 0.4 /*length*/, 0.4 /*width*/);
         HeartConfig::Instance()->SetOutputUsingOriginalNodeOrdering(true);
 		
-        HeartConfig::Instance()->SetSimulationDuration(1000.0);  //ms
+        HeartConfig::Instance()->SetSimulationDuration(1500);  //ms
         HeartConfig::Instance()->SetOutputDirectory("ZeroConductance2");
         HeartConfig::Instance()->SetOutputFilenamePrefix("ZeroConductance2");
 	HeartConfig::Instance()->SetVisualizeWithVtk(true);
 		
-	HeartConfig::Instance()->SetOdePdeAndPrintingTimeSteps(0.0001, 0.0001, 0.001); 
+	HeartConfig::Instance()->SetOdePdeAndPrintingTimeSteps(0.0001, 0.01, 0.1); 
 	// CVODE will take as many adaptive internal timesteps as it requires each time it is called, 
 	// so we should just call it once per PDE timestep - i.e. set the ODE and PDE timesteps to be the same.
 		
@@ -111,7 +107,7 @@ public: // Tests should be public!
         //HeartConfig::Instance()->SetBathMultipleConductivities(multiple_bath_conductivities);
 
         double magnitude = -20.0e3; // uA/cm^2
-        double start_time = 1000.0;
+        double start_time = 500;
         double duration = 1; //ms
 		
         HeartConfig::Instance()->SetElectrodeParameters(false, 0, magnitude, start_time, duration);
