@@ -65,12 +65,12 @@ public: // Tests should be public!
         mesh.ConstructRegularSlabMesh(h, 0.4 /*length*/, 0.4 /*width*/);
         HeartConfig::Instance()->SetOutputUsingOriginalNodeOrdering(true);
 		
-        HeartConfig::Instance()->SetSimulationDuration(1000.0);  //ms
-        HeartConfig::Instance()->SetOutputDirectory("NormalConductance2");
-        HeartConfig::Instance()->SetOutputFilenamePrefix("NormalConductance2");
+        HeartConfig::Instance()->SetSimulationDuration(1500.0);  //ms
+        HeartConfig::Instance()->SetOutputDirectory("NormalConductance0.01ode0.01pde0.1print");
+        HeartConfig::Instance()->SetOutputFilenamePrefix("NormalConductance0.01ode0.01pde0.1print");
 		HeartConfig::Instance()->SetVisualizeWithVtk(true);
 		
-		HeartConfig::Instance()->SetOdePdeAndPrintingTimeSteps(0.0001, 0.01, 0.1);
+		HeartConfig::Instance()->SetOdePdeAndPrintingTimeSteps(0.01, 0.01, 0.1);
 
 	
         /*PlaneStimulusCellFactory<CellToRORddynClmidFromCellML,2> cell_factory(0.0);
@@ -121,7 +121,7 @@ public: // Tests should be public!
         // For default conductivities and explicit cell model -1e4 is under threshold, -1.4e4 too high - crashes the cell model
         // For heterogeneous conductivities as given, -1e4 is under threshold
         double magnitude = -20.0e3; // uA/cm^2
-        double start_time = 1.0;
+        double start_time = 500.0;
         double duration = 1; //ms
 		
         HeartConfig::Instance()->SetElectrodeParameters(false, 0, magnitude, start_time, duration);
