@@ -21,7 +21,7 @@ public:
         unsigned rhs_4_index = 224;
 		unsigned lhs_5_index = 215;
         unsigned rhs_5_index = 225;
-		Hdf5DataReader simulation_data("testoutput/ZeroConductance1100","ZeroConductance1100", false);
+		Hdf5DataReader simulation_data("testoutput/ZeroConductanceLeft1100","ZeroConductanceLeft1100", false);
 
         PropagationPropertiesCalculator ppc(&simulation_data);
 		//ppc.CalculateConductionVelocity(lhs_index,rhs_index,0.08);

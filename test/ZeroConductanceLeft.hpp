@@ -39,12 +39,12 @@ public:
         p_cell->SetTolerances(1e-5,1e-7);
 		if (x<0.2)
 		{
-			//No change to conductance of cell factory (left side)
+			//Change conductance of cell factory (left side)
+			p_cell->SetParameter("membrane_fast_sodium_current_conductance", 0);
 		}
 		else
 		{
-			//Change conductance of cell factory (right side)
-			p_cell->SetParameter("membrane_fast_sodium_current_conductance", 0);
+			//No change to conductance of cell factory (right side)
 		}
         return p_cell;
     }
@@ -58,13 +58,13 @@ public: // Tests should be public!
     {
 	/*Generate a Mesh Here*/
 	DistributedTetrahedralMesh<2,2> mesh;
-        double h=0.01;
+        double h=0.02;
         mesh.ConstructRegularSlabMesh(h, 0.4 /*length*/, 0.4 /*width*/);
         HeartConfig::Instance()->SetOutputUsingOriginalNodeOrdering(true);
 		
         HeartConfig::Instance()->SetSimulationDuration(1100);  //ms
-        HeartConfig::Instance()->SetOutputDirectory("ZeroConductance1100h1");
-        HeartConfig::Instance()->SetOutputFilenamePrefix("ZeroConductance1100h1");
+        HeartConfig::Instance()->SetOutputDirectory("ZeroConductanceLeft1100");
+        HeartConfig::Instance()->SetOutputFilenamePrefix("ZeroConductanceLeft1100");
 	HeartConfig::Instance()->SetVisualizeWithVtk(true);
 		
 	HeartConfig::Instance()->SetOdePdeAndPrintingTimeSteps(0.01, 0.01, 0.1); 
@@ -107,7 +107,7 @@ public: // Tests should be public!
         //HeartConfig::Instance()->SetBathMultipleConductivities(multiple_bath_conductivities);
 
         double magnitude = -20.0e3; // uA/cm^2
-        double start_time = 500;
+        double start_time = 100;
         double duration = 1; //ms
 		
         HeartConfig::Instance()->SetElectrodeParameters(false, 0, magnitude, start_time, duration);

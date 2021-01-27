@@ -11,17 +11,17 @@ class TestPropagationPropertiesCalculator : public CxxTest::TestSuite
 public:
      void TestConductionBidomain3D()
 	 {
-		unsigned lhs_index = 219;
-        unsigned rhs_index = 221;
-		unsigned lhs_2_index = 218;
-        unsigned rhs_2_index = 222;
-		unsigned lhs_3_index = 217;
-        unsigned rhs_3_index = 223;
-		unsigned lhs_4_index = 216;
-        unsigned rhs_4_index = 224;
-		unsigned lhs_5_index = 215;
-        unsigned rhs_5_index = 225;
-		Hdf5DataReader simulation_data("testoutput/NormalConductance1100","NormalConductance1100", false);
+		unsigned lhs_index = 838;
+        unsigned rhs_index = 842;
+		unsigned lhs_2_index = 836;
+        unsigned rhs_2_index = 844;
+		unsigned lhs_3_index = 834;
+        unsigned rhs_3_index = 846;
+		unsigned lhs_4_index = 832;
+        unsigned rhs_4_index = 848;
+		unsigned lhs_5_index = 830;
+        unsigned rhs_5_index = 850;
+		Hdf5DataReader simulation_data("testoutput/NormalConductance1100h1","NormalConductance1100h1", false);
 
         PropagationPropertiesCalculator ppc(&simulation_data);
 		//ppc.CalculateConductionVelocity(lhs_index,rhs_index,0.08);
