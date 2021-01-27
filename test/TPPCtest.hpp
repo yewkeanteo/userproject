@@ -24,9 +24,9 @@ public:
 		//ppc.CalculateConductionVelocity(middle_index,rhs_index,0.1);
 		std::cout << "The conduction velocity is "<<ppc.CalculateConductionVelocity(middle_index,rhs_index,0.1) << "\n";
 		ChastePoint<1> point1(0.16);
-     	ChastePoint<1> point2(0.2);
-		Node<1> node1(0, point1);
-		TS_ASSERT_EQUALS(node1.GetIndex(), 0u);
+     	ChastePoint<2> point2(0.2);
+		Node<2> node1(128, point1);
+		std::cout << "The conduction velocity is "<<node1.GetIndex() << "\n";
 		//n.
 	 }
 };
