@@ -61,7 +61,7 @@ public: // Tests should be public!
     {
 		/*Generate a Mesh Here*/
 		DistributedTetrahedralMesh<2,2> mesh;
-        double h=0.01;
+        double h=0.02;
         mesh.ConstructRegularSlabMesh(h, 0.4 /*length*/, 0.4 /*width*/);
         HeartConfig::Instance()->SetOutputUsingOriginalNodeOrdering(true);
 		
