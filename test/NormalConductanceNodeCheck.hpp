@@ -32,11 +32,19 @@ public:
 		
 		if ((x==0.16) && (y==0.2))
 			{
-			std::cout << "The index for at x=0.16 and y=0.2 is "<<pNode->GetIndex()<< "\n";
+			std::cout << "The node index at x=0.16 and y=0.2 is "<<pNode->GetIndex()<< "\n";
 			}
 		else
 			{
 			}
+			
+		if ((x==0.24) && (y==0.2))
+			{
+			std::cout << "The node index at x=0.24 and y=0.2 is "<<pNode->GetIndex()<< "\n";
+			}
+		else
+			{
+			}	
 		
         if ((x<0.1+1e-6) && (y<0.1+1e-6) /*&& (z<0.1+1e-6)*/)
         {
