@@ -9,6 +9,7 @@ CellFactoryTorordBathVtuTime.hpp
 TorordBathVtuTimeParameter.hpp
 NormalConductance.hpp
 NormalConductanceNodeCheck.hpp
+NormalDoubleCell.hpp
 ZeroConductance.hpp
 ZeroConductanceLeft.hpp
 TPPCtest.hpp
