@@ -31,13 +31,19 @@ public:
 		
 		if ((x==0.3) && (y==0.2))
 			{
-			std::cout << "The node index at x=0.16 and y=0.2 is "<<pNode->GetIndex()<< "\n";
+			std::cout << "The node index at x=0.3 and y=0.2 is "<<pNode->GetIndex()<< "\n";
 			}
 			
 		if ((x==0.5) && (y==0.2))
 			{
-			std::cout << "The node index at x=0.24 and y=0.2 is "<<pNode->GetIndex()<< "\n";
+			std::cout << "The node index at x=0.5 and y=0.2 is "<<pNode->GetIndex()<< "\n";
 			}
+			
+		if ((x==0.7) && (y==0.2))
+			{
+			std::cout << "The node index at x=0.7 and y=0.2 is "<<pNode->GetIndex()<< "\n";
+			}	
+		
 		
         if ((x<0.1+1e-6) && (y<0.1+1e-6))
         {
@@ -71,12 +77,12 @@ public: // Tests should be public!
 		/*Generate a Mesh Here*/
 		DistributedTetrahedralMesh<2,2> mesh;
         double h=0.02;
-        mesh.ConstructRegularSlabMesh(h, 0.8 /*length*/, 0.4 /*width*/);
+        mesh.ConstructRegularSlabMesh(h, 1.0 /*length*/, 0.4 /*width*/);
         HeartConfig::Instance()->SetOutputUsingOriginalNodeOrdering(true);
 		
         HeartConfig::Instance()->SetSimulationDuration(1100.0);  //ms
-        HeartConfig::Instance()->SetOutputDirectory("NormalDoubleCell1000");
-        HeartConfig::Instance()->SetOutputFilenamePrefix("NormalDoubleCell1000");
+        HeartConfig::Instance()->SetOutputDirectory("Normal3Cell1000");
+        HeartConfig::Instance()->SetOutputFilenamePrefix("Normal3Cell1000");
 		HeartConfig::Instance()->SetVisualizeWithVtk(true);
 		
 		HeartConfig::Instance()->SetOdePdeAndPrintingTimeSteps(0.01, 0.01, 0.1);
@@ -107,12 +113,17 @@ public: // Tests should be public!
         {
             double x = iter->CalculateCentroid()[0];
             double y = iter->CalculateCentroid()[1];
-            if (sqrt((x-0.305)*(x-0.305) + (y-0.2)*(y-0.2)) < 0.1)
+            if (sqrt((x-0.31)*(x-0.31) + (y-0.2)*(y-0.2)) < 0.1)
             {
                 //IDs default to 0, but we want to be safe
                 iter->SetAttribute(tissue_id);
             }
-			else if (sqrt((x-0.495)*(x-0.495) + (y-0.2)*(y-0.2)) < 0.1)
+			else if (sqrt((x-0.5)*(x-0.5) + (y-0.2)*(y-0.2)) < 0.1)
+			{
+                //IDs default to 0, but we want to be safe
+                iter->SetAttribute(tissue_id);				
+			}
+			else if (sqrt((x-0.69)*(x-0.69) + (y-0.2)*(y-0.2)) < 0.1)
 			{
                 //IDs default to 0, but we want to be safe
                 iter->SetAttribute(tissue_id);				

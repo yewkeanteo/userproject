@@ -56,7 +56,7 @@ public:
 		else
 		{
 			//Change conductance of cell factory (right side)
-			//p_cell->SetParameter("membrane_fast_sodium_current_conductance", 0);
+			p_cell->SetParameter("membrane_fast_sodium_current_conductance", 0);
 		}
         return p_cell;
     }
@@ -75,8 +75,8 @@ public: // Tests should be public!
         HeartConfig::Instance()->SetOutputUsingOriginalNodeOrdering(true);
 		
         HeartConfig::Instance()->SetSimulationDuration(1100.0);  //ms
-        HeartConfig::Instance()->SetOutputDirectory("NormalDoubleCell1000");
-        HeartConfig::Instance()->SetOutputFilenamePrefix("NormalDoubleCell1000");
+        HeartConfig::Instance()->SetOutputDirectory("ZeroDoubleCell1000");
+        HeartConfig::Instance()->SetOutputFilenamePrefix("ZeroDoubleCell1000");
 		HeartConfig::Instance()->SetVisualizeWithVtk(true);
 		
 		HeartConfig::Instance()->SetOdePdeAndPrintingTimeSteps(0.01, 0.01, 0.1);

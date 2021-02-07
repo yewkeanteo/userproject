@@ -15,19 +15,14 @@ class TestPropagationPropertiesCalculator : public CxxTest::TestSuite
 public:
      void TestConductionBidomain3D()
 	 {
-		unsigned middle_index = 218;
-        unsigned rhs_index = 222;
+		unsigned middle_index = 425;
+        unsigned rhs_index = 435;
 		
-		Hdf5DataReader simulation_data("projects/userproject/Results/1000ms/NormalConductance2",
-                                       "NormalConductance2", false);
+		Hdf5DataReader simulation_data("projects/userproject/Results/DoubleCell/NormalDoubleCell500",
+                                       "NormalDoubleCell500", false);
         PropagationPropertiesCalculator ppc(&simulation_data);
 		//ppc.CalculateConductionVelocity(middle_index,rhs_index,0.1);
-		std::cout << "The conduction velocity is "<<ppc.CalculateConductionVelocity(middle_index,rhs_index,0.1) << "\n";
-		ChastePoint<1> point1(0.16);
-     	ChastePoint<1> point2(0.2);
-		Node<1> node1(0, point1);
-		TS_ASSERT_EQUALS(node1.GetIndex(), 0u);
-		//n.
+		std::cout << "The conduction velocity is "<<ppc.CalculateConductionVelocity(middle_index,rhs_index,0.2) << "\n";
 	 }
 };
 
