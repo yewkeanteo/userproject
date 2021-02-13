@@ -16,6 +16,7 @@ ZeroConductanceLeft.hpp
 ZeroDoubleCell.hpp
 Zero3Cell.hpp
 TPPCtest.hpp
+IntraNormal2Cell.hpp
 TPPCNormal.hpp
 TPPCNormalh1.hpp
 TPPCDoubleCell.hpp
