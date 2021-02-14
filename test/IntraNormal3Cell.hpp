@@ -9,7 +9,7 @@
 #include "TetrahedralMesh.hpp"
 #include <cmath>
 
-class CustomCellFactory : public AbstractCardiacCellFactory<2> // <3> herefa
+class CustomCellFactory : public AbstractCardiacCellFactory<2> // <3> here
 {
 private:
     boost::shared_ptr<SimpleStimulus> mpStimulus;
@@ -28,17 +28,16 @@ public:
 
         double x = pNode->rGetLocation()[0];
         double y = pNode->rGetLocation()[1];
-		
-		/*if ((x==0.3) && (y==0.2))
+		/*
+		if ((x==0.3) && (y==0.2))
 			{
-			std::cout << "The node index at x=0.16 and y=0.2 is "<<pNode->GetIndex()<< "\n";
+			std::cout << "The node index at x=0.3 and y=0.2 is "<<pNode->GetIndex()<< "\n";
 			}
-			
-		if ((x==0.5) && (y==0.2))
+		if ((x==0.7) && (y==0.2))
 			{
-			std::cout << "The node index at x=0.24 and y=0.2 is "<<pNode->GetIndex()<< "\n";
+			std::cout << "The node index at x=0.5 and y=0.2 is "<<pNode->GetIndex()<< "\n";
 			}
-		*/
+		*/		
          if ((x<0.26+1e-6) && (y<0.21+1e-6))
 			{
 			if ((x>0.24+1e-6) && (y>0.19+1e-6))
@@ -55,10 +54,11 @@ public:
             p_cell = new CellToRORddynClmidFromCellMLCvode(p_empty_solver, mpZeroStimulus);
         }
         p_cell->SetTolerances(1e-5,1e-7);
-		if (x<0.4)
+		if (x<0.405)
 		{
-			//Change conductance of cell factory (left side)
-			//p_cell->SetParameter("membrane_fast_sodium_current_conductance", 0);
+		}
+		else if (x>0.595)
+		{
 		}
 		else
 		{
@@ -78,12 +78,12 @@ public: // Tests should be public!
 		/*Generate a Mesh Here*/
 		DistributedTetrahedralMesh<2,2> mesh;
         double h=0.02;
-        mesh.ConstructRegularSlabMesh(h, 0.8 /*length*/, 0.4 /*width*/);
+        mesh.ConstructRegularSlabMesh(h, 1.0 /*length*/, 0.4 /*width*/);
         HeartConfig::Instance()->SetOutputUsingOriginalNodeOrdering(true);
 		
         HeartConfig::Instance()->SetSimulationDuration(1000.0);  //ms
-        HeartConfig::Instance()->SetOutputDirectory("IntraNormal2Cell1000");
-        HeartConfig::Instance()->SetOutputFilenamePrefix("IntraNormal2Cell1000");
+        HeartConfig::Instance()->SetOutputDirectory("IntraNormal3Cell1000");
+        HeartConfig::Instance()->SetOutputFilenamePrefix("IntraNormal3Cell1000");
 		HeartConfig::Instance()->SetVisualizeWithVtk(true);
 		
 		HeartConfig::Instance()->SetOdePdeAndPrintingTimeSteps(0.01, 0.01, 0.1);
@@ -114,12 +114,17 @@ public: // Tests should be public!
         {
             double x = iter->CalculateCentroid()[0];
             double y = iter->CalculateCentroid()[1];
-            if (sqrt((x-0.305)*(x-0.305) + (y-0.2)*(y-0.2)) < 0.1)
+            if (sqrt((x-0.31)*(x-0.31) + (y-0.2)*(y-0.2)) < 0.1)
             {
                 //IDs default to 0, but we want to be safe
                 iter->SetAttribute(tissue_id);
             }
-			else if (sqrt((x-0.495)*(x-0.495) + (y-0.2)*(y-0.2)) < 0.1)
+			else if (sqrt((x-0.5)*(x-0.5) + (y-0.2)*(y-0.2)) < 0.1)
+			{
+                //IDs default to 0, but we want to be safe
+                iter->SetAttribute(tissue_id);				
+			}
+			else if (sqrt((x-0.69)*(x-0.69) + (y-0.2)*(y-0.2)) < 0.1)
 			{
                 //IDs default to 0, but we want to be safe
                 iter->SetAttribute(tissue_id);				
