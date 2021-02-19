@@ -78,12 +78,12 @@ public: // Tests should be public!
 		/*Generate a Mesh Here*/
 		DistributedTetrahedralMesh<2,2> mesh;
         double h=0.02;
-        mesh.ConstructRegularSlabMesh(h, 1.0 /*length*/, 0.4 /*width*/);
+        mesh.ConstructRegularSlabMesh(h, 2.4 /*length*/, 0.4 /*width*/);
         HeartConfig::Instance()->SetOutputUsingOriginalNodeOrdering(true);
 		
         HeartConfig::Instance()->SetSimulationDuration(1000.0);  //ms
-        HeartConfig::Instance()->SetOutputDirectory("IntraNormal3Cell1000");
-        HeartConfig::Instance()->SetOutputFilenamePrefix("IntraNormal3Cell1000");
+        HeartConfig::Instance()->SetOutputDirectory("IntraNormal10Cell1000");
+        HeartConfig::Instance()->SetOutputFilenamePrefix("IntraNormal10Cell00");
 		HeartConfig::Instance()->SetVisualizeWithVtk(true);
 		
 		HeartConfig::Instance()->SetOdePdeAndPrintingTimeSteps(0.01, 0.01, 0.1);
@@ -114,17 +114,52 @@ public: // Tests should be public!
         {
             double x = iter->CalculateCentroid()[0];
             double y = iter->CalculateCentroid()[1];
-            if (sqrt((x-0.31)*(x-0.31) + (y-0.2)*(y-0.2)) < 0.1)
+            if (sqrt((x-0.3)*(x-0.3) + (y-0.2)*(y-0.2)) < 0.1)
             {
                 //IDs default to 0, but we want to be safe
                 iter->SetAttribute(tissue_id);
             }
-			else if (sqrt((x-0.5)*(x-0.5) + (y-0.2)*(y-0.2)) < 0.1)
+			else if (sqrt((x-0.5)*(x-0.5) + (y-0.2)*(y-0.2)) < 0.105)
 			{
                 //IDs default to 0, but we want to be safe
                 iter->SetAttribute(tissue_id);				
 			}
-			else if (sqrt((x-0.69)*(x-0.69) + (y-0.2)*(y-0.2)) < 0.1)
+			else if (sqrt((x-0.7)*(x-0.7) + (y-0.2)*(y-0.2)) < 0.105)
+			{
+                //IDs default to 0, but we want to be safe
+                iter->SetAttribute(tissue_id);				
+			}
+			else if (sqrt((x-0.9)*(x-0.9) + (y-0.2)*(y-0.2)) < 0.105)
+			{
+                //IDs default to 0, but we want to be safe
+                iter->SetAttribute(tissue_id);				
+			}
+			else if (sqrt((x-1.1)*(x-1.1) + (y-0.2)*(y-0.2)) < 0.105)
+			{
+                //IDs default to 0, but we want to be safe
+                iter->SetAttribute(tissue_id);				
+			}
+			else if (sqrt((x-1.3)*(x-1.3) + (y-0.2)*(y-0.2)) < 0.105)
+			{
+                //IDs default to 0, but we want to be safe
+                iter->SetAttribute(tissue_id);				
+			}
+			else if (sqrt((x-1.5)*(x-1.5) + (y-0.2)*(y-0.2)) < 0.105)
+			{
+                //IDs default to 0, but we want to be safe
+                iter->SetAttribute(tissue_id);				
+			}
+			else if (sqrt((x-1.7)*(x-1.7) + (y-0.2)*(y-0.2)) < 0.105)
+			{
+                //IDs default to 0, but we want to be safe
+                iter->SetAttribute(tissue_id);				
+			}
+			else if (sqrt((x-1.9)*(x-1.9) + (y-0.2)*(y-0.2)) < 0.105)
+			{
+                //IDs default to 0, but we want to be safe
+                iter->SetAttribute(tissue_id);				
+			}
+			else if (sqrt((x-2.1)*(x-2.1) + (y-0.2)*(y-0.2)) < 0.105)
 			{
                 //IDs default to 0, but we want to be safe
                 iter->SetAttribute(tissue_id);				

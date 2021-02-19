@@ -9,7 +9,7 @@
 #include "TetrahedralMesh.hpp"
 #include <cmath>
 
-class CustomCellFactory : public AbstractCardiacCellFactory<2> // <3> here
+class CustomCellFactory : public AbstractCardiacCellFactory<2> // <3> herefa
 {
 private:
     boost::shared_ptr<SimpleStimulus> mpStimulus;
@@ -17,7 +17,7 @@ private:
 public:
     CustomCellFactory()
         : AbstractCardiacCellFactory<2>(), 
-          mpStimulus(new SimpleStimulus(-8e5, 2))
+          mpStimulus(new SimpleStimulus(-5e5, 2))
     {
     }
 
@@ -28,25 +28,15 @@ public:
 
         double x = pNode->rGetLocation()[0];
         double y = pNode->rGetLocation()[1];
-		/*
-		if ((x==0.3) && (y==0.2))
+         if ((x<0.23+1e-6) && (y<0.21+1e-6))
 			{
-			std::cout << "The node index at x=0.3 and y=0.2 is "<<pNode->GetIndex()<< "\n";
-			}
-		if ((x==0.7) && (y==0.2))
-			{
-			std::cout << "The node index at x=0.5 and y=0.2 is "<<pNode->GetIndex()<< "\n";
-			}
-		*/		
-         if ((x<0.26+1e-6) && (y<0.21+1e-6))
-			{
-			if ((x>0.24+1e-6) && (y>0.19+1e-6))
+			if ((x>0.21+1e-6) && (y>0.19+1e-6))
 				{
 				p_cell = new CellToRORddynClmidFromCellMLCvode(p_empty_solver, mpStimulus);
 				}
 			else
 				{
-					p_cell = new CellToRORddynClmidFromCellMLCvode(p_empty_solver, mpZeroStimulus);
+				p_cell = new CellToRORddynClmidFromCellMLCvode(p_empty_solver, mpZeroStimulus);
 				}
 			}
         else
@@ -54,16 +44,13 @@ public:
             p_cell = new CellToRORddynClmidFromCellMLCvode(p_empty_solver, mpZeroStimulus);
         }
         p_cell->SetTolerances(1e-5,1e-7);
-		if (x<0.400)
-		{
-		}
-		else if (x>0.600)
+		if (x<0.4)
 		{
 		}
 		else
 		{
 			//Change conductance of cell factory (right side)
-			//p_cell->SetParameter("membrane_fast_sodium_current_conductance", 0);
+			p_cell->SetParameter("membrane_fast_sodium_current_conductance", 0);
 		}
         return p_cell;
     }
@@ -82,19 +69,11 @@ public: // Tests should be public!
         HeartConfig::Instance()->SetOutputUsingOriginalNodeOrdering(true);
 		
         HeartConfig::Instance()->SetSimulationDuration(1000.0);  //ms
-        HeartConfig::Instance()->SetOutputDirectory("IntraNormal3Cell1000");
-        HeartConfig::Instance()->SetOutputFilenamePrefix("IntraNormal3Cell1000");
+        HeartConfig::Instance()->SetOutputDirectory("IntraZero2BCB1000");
+        HeartConfig::Instance()->SetOutputFilenamePrefix("IntraZero2BCB1000");
 		HeartConfig::Instance()->SetVisualizeWithVtk(true);
 		
 		HeartConfig::Instance()->SetOdePdeAndPrintingTimeSteps(0.01, 0.01, 0.1);
-
-	
-
-        /*PlaneStimulusCellFactory<CellToRORddynClmidFromCellML,2> cell_factory(0.0);
-        TrianglesMeshReader<2,2> reader("mesh/test/data/2D_0_to_1mm_400_elements");
-        DistributedTetrahedralMesh<2,2> mesh;
-        mesh.ConstructFromMeshReader(reader);*/
-		
 		// Original bidomain bath code
 		std::set<unsigned> tissue_ids;
         static unsigned tissue_id=0;
@@ -114,20 +93,29 @@ public: // Tests should be public!
         {
             double x = iter->CalculateCentroid()[0];
             double y = iter->CalculateCentroid()[1];
-            if (sqrt((x-0.31)*(x-0.31) + (y-0.2)*(y-0.2)) < 0.1)
+            if (sqrt((x-0.3)*(x-0.3) + (y-0.2)*(y-0.2)) < 0.105) 
             {
-                //IDs default to 0, but we want to be safe
+                if (sqrt((x-0.3)*(x-0.3) + (y-0.2)*(y-0.2)) < 0.065)
+				{	
+				iter->SetAttribute(bath_id1);
+				}
+				else
+				{	
+				//IDs default to 0, but we want to be safe
                 iter->SetAttribute(tissue_id);
-            }
-			else if (sqrt((x-0.5)*(x-0.5) + (y-0.2)*(y-0.2)) < 0.1)
-			{
-                //IDs default to 0, but we want to be safe
-                iter->SetAttribute(tissue_id);				
+				}
 			}
-			else if (sqrt((x-0.69)*(x-0.69) + (y-0.2)*(y-0.2)) < 0.1)
-			{
-                //IDs default to 0, but we want to be safe
-                iter->SetAttribute(tissue_id);				
+			else if (sqrt((x-0.5)*(x-0.5) + (y-0.2)*(y-0.2)) < 0.105) 
+            {
+                if (sqrt((x-0.5)*(x-0.5) + (y-0.2)*(y-0.2)) < 0.065)
+				{	
+				iter->SetAttribute(bath_id1);
+				}
+				else
+				{	
+				//IDs default to 0, but we want to be safe
+                iter->SetAttribute(tissue_id);
+				}
 			}
             else
             {
