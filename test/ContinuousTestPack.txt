@@ -10,11 +10,15 @@ TorordBathVtuTimeParameter.hpp
 NormalConductance.hpp
 NormalConductanceNodeCheck.hpp
 NormalDoubleCell.hpp
+Normal2BCB.hpp
 Normal3Cell.hpp
+Normal3BCB.hpp
 ZeroConductance.hpp
 ZeroConductanceLeft.hpp
 ZeroDoubleCell.hpp
+Zero2BCB.hpp
 Zero3Cell.hpp
+Zero3BCB.hpp
 TPPCtest.hpp
 IntraNormal2Cell.hpp
 IntraZero2Cell.hpp
@@ -34,4 +38,16 @@ TPPCZero.hpp
 TPPCZeroh1.hpp
 TPPCZeroLeft.hpp
 TPPCZeroDoubleCell.hpp
+TPPC2BCB.hpp
+TPPC3BCB.hpp
+ScaledIN2BCB.hpp
+ScaledIZ2BCB.hpp
+ScaledEN2BCB.hpp
+ScaledEZ2BCB.hpp
+ScaledTPPC2BCB.hpp
+ScaledEN3BCB.hpp
+ScaledEZ3BCB.hpp
+ScaledIN3BCB.hpp
+ScaledIZ3BCB.hpp
+ScaledTPPC3BCB.hpp
 

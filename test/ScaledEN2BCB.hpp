@@ -9,7 +9,7 @@
 #include "TetrahedralMesh.hpp"
 #include <cmath>
 
-class CustomCellFactory : public AbstractCardiacCellFactory<2> // <3> herefa
+class CustomCellFactory : public AbstractCardiacCellFactory<2> // <3> here
 {
 private:
     boost::shared_ptr<SimpleStimulus> mpStimulus;
@@ -17,7 +17,7 @@ private:
 public:
     CustomCellFactory()
         : AbstractCardiacCellFactory<2>(), 
-          mpStimulus(new SimpleStimulus(-5e5, 2))
+          mpStimulus(new SimpleStimulus(-0e5, 2))
     {
     }
 
@@ -28,11 +28,11 @@ public:
 
         double x = pNode->rGetLocation()[0];
         double y = pNode->rGetLocation()[1];
-         if ((x<0.23+1e-6) && (y<0.21+1e-6))
+         if ((x<0.0081) && (y<0.0081))
 			{
-			if ((x>0.21+1e-6) && (y>0.19+1e-6))
+			if ((x>0.0079) && (y>0.0079))
 				{
-				p_cell = new CellToRORddynClmidFromCellMLCvode(p_empty_solver, mpStimulus);
+				p_cell = new CellToRORddynClmidFromCellMLCvode(p_empty_solver, mpZeroStimulus);
 				}
 			else
 				{
@@ -44,13 +44,13 @@ public:
             p_cell = new CellToRORddynClmidFromCellMLCvode(p_empty_solver, mpZeroStimulus);
         }
         p_cell->SetTolerances(1e-5,1e-7);
-		if (x<0.4)
+		if (x<0.015)
 		{
 		}
 		else
 		{
 			//Change conductance of cell factory (right side)
-			p_cell->SetParameter("membrane_fast_sodium_current_conductance", 0);
+			//p_cell->SetParameter("membrane_fast_sodium_current_conductance", 0);
 		}
         return p_cell;
     }
@@ -64,16 +64,16 @@ public: // Tests should be public!
     {
 		/*Generate a Mesh Here*/
 		DistributedTetrahedralMesh<2,2> mesh;
-        double h=0.02;
-        mesh.ConstructRegularSlabMesh(h, 0.8 /*length*/, 0.4 /*width*/);
+        double h=0.001;
+        mesh.ConstructRegularSlabMesh(h, 0.03 /*length*/, 0.016 /*width*/);
         HeartConfig::Instance()->SetOutputUsingOriginalNodeOrdering(true);
-		
-        HeartConfig::Instance()->SetSimulationDuration(1000.0);  //ms
-        HeartConfig::Instance()->SetOutputDirectory("IntraZero2BCB1000");
-        HeartConfig::Instance()->SetOutputFilenamePrefix("IntraZero2BCB1000");
+        HeartConfig::Instance()->SetSimulationDuration(400.0);  //ms
+        HeartConfig::Instance()->SetOutputDirectory("ScaledEN2BCB400");
+        HeartConfig::Instance()->SetOutputFilenamePrefix("ScaledEN2BCB400");
 		HeartConfig::Instance()->SetVisualizeWithVtk(true);
 		
 		HeartConfig::Instance()->SetOdePdeAndPrintingTimeSteps(0.01, 0.01, 0.1);
+
 		// Original bidomain bath code
 		std::set<unsigned> tissue_ids;
         static unsigned tissue_id=0;
@@ -82,8 +82,6 @@ public: // Tests should be public!
         std::set<unsigned> bath_ids;
         static unsigned bath_id1=1;
         bath_ids.insert(bath_id1);
-        //static unsigned bath_id2=2;
-        //bath_ids.insert(bath_id2);
 
         HeartConfig::Instance()->SetTissueAndBathIdentifiers(tissue_ids, bath_ids);
 
@@ -93,9 +91,9 @@ public: // Tests should be public!
         {
             double x = iter->CalculateCentroid()[0];
             double y = iter->CalculateCentroid()[1];
-            if (sqrt((x-0.3)*(x-0.3) + (y-0.2)*(y-0.2)) < 0.105) 
+            if (sqrt((x-0.01125)*(x-0.01125) + (y-0.008)*(y-0.008)) < 0.004) 
             {
-                if (sqrt((x-0.3)*(x-0.3) + (y-0.2)*(y-0.2)) < 0.065)
+                if (sqrt((x-0.01125)*(x-0.01125) + (y-0.008)*(y-0.008)) < 0.002)
 				{	
 				iter->SetAttribute(bath_id1);
 				}
@@ -105,9 +103,9 @@ public: // Tests should be public!
                 iter->SetAttribute(tissue_id);
 				}
 			}
-			else if (sqrt((x-0.5)*(x-0.5) + (y-0.2)*(y-0.2)) < 0.105) 
+			else if (sqrt((x-0.01875)*(x-0.01875) + (y-0.008)*(y-0.008)) < 0.004) 
             {
-                if (sqrt((x-0.5)*(x-0.5) + (y-0.2)*(y-0.2)) < 0.065)
+                if (sqrt((x-0.01875)*(x-0.01875) + (y-0.008)*(y-0.008)) < 0.002)
 				{	
 				iter->SetAttribute(bath_id1);
 				}
@@ -134,7 +132,7 @@ public: // Tests should be public!
 		
         // For default conductivities and explicit cell model -1e4 is under threshold, -1.4e4 too high - crashes the cell model
         // For heterogeneous conductivities as given, -1e4 is under threshold
-        double magnitude = -0.0e3; // uA/cm^2
+        double magnitude = -38.5e3; // uA/cm^2
         double start_time = 0.0;
         double duration = 1; //ms
 		
@@ -147,18 +145,6 @@ public: // Tests should be public!
         BidomainProblem<2> bidomain_problem( &cell_factory, true);
 
         bidomain_problem.SetMesh(&mesh);
-		
-		/*output to hdf5 file, set to false to not output*/
-		/*bool partial_output = false;
-        if (partial_output)
-        {
-            std::vector<unsigned> nodes_to_be_output;
-            nodes_to_be_output.push_back(0);
-            nodes_to_be_output.push_back((unsigned)round( (mesh.GetNumNodes()-1)/2 ));
-            nodes_to_be_output.push_back(mesh.GetNumNodes()-1);
-            bidomain_problem.SetOutputNodes(nodes_to_be_output);
-        }
-		*/
 		bidomain_problem.SetWriteInfo();
 		 
         bidomain_problem.Initialise();
@@ -169,22 +155,7 @@ public: // Tests should be public!
 		
 		HeartEventHandler::Headings();
 		HeartEventHandler::Headings();
-		
-        /*bool ap_triggered = false;
-        for (AbstractTetrahedralMesh<2,2>::NodeIterator iter = mesh.GetNodeIteratorBegin();
-             iter != mesh.GetNodeIteratorEnd();
-             ++iter)
-        {
-            if (HeartRegionCode::IsRegionTissue( iter->GetRegion() ))
-            {
-                if (solution_repl[2*iter->GetIndex()] > 0.0) // 2*i, ie the voltage for this node (would be 2*i+1 for phi_e for this node)
-                {
-                    ap_triggered = true;
-                }
-            }
-        }
-        TS_ASSERT(ap_triggered);
-		*/
+
     }
 };
 

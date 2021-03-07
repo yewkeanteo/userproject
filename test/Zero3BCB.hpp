@@ -17,7 +17,7 @@ private:
 public:
     CustomCellFactory()
         : AbstractCardiacCellFactory<2>(), 
-          mpStimulus(new SimpleStimulus(-5e5, 2))
+          mpStimulus(new SimpleStimulus(-0e5, 2))
     {
     }
 
@@ -32,7 +32,7 @@ public:
 			{
 			if ((x>0.21+1e-6) && (y>0.19+1e-6))
 				{
-				p_cell = new CellToRORddynClmidFromCellMLCvode(p_empty_solver, mpStimulus);
+				p_cell = new CellToRORddynClmidFromCellMLCvode(p_empty_solver, mpZeroStimulus);
 				}
 			else
 				{
@@ -44,7 +44,10 @@ public:
             p_cell = new CellToRORddynClmidFromCellMLCvode(p_empty_solver, mpZeroStimulus);
         }
         p_cell->SetTolerances(1e-5,1e-7);
-		if (x<0.4)
+		if (x<0.400)
+		{
+		}
+		else if (x>0.600)
 		{
 		}
 		else
@@ -65,15 +68,23 @@ public: // Tests should be public!
 		/*Generate a Mesh Here*/
 		DistributedTetrahedralMesh<2,2> mesh;
         double h=0.02;
-        mesh.ConstructRegularSlabMesh(h, 0.8 /*length*/, 0.4 /*width*/);
+        mesh.ConstructRegularSlabMesh(h, 1.0 /*length*/, 0.4 /*width*/);
         HeartConfig::Instance()->SetOutputUsingOriginalNodeOrdering(true);
 		
         HeartConfig::Instance()->SetSimulationDuration(1000.0);  //ms
-        HeartConfig::Instance()->SetOutputDirectory("IntraZero2BCB1000");
-        HeartConfig::Instance()->SetOutputFilenamePrefix("IntraZero2BCB1000");
+        HeartConfig::Instance()->SetOutputDirectory("Zero3BCB1000-14");
+        HeartConfig::Instance()->SetOutputFilenamePrefix("Zero3BCB1000-14");
 		HeartConfig::Instance()->SetVisualizeWithVtk(true);
 		
 		HeartConfig::Instance()->SetOdePdeAndPrintingTimeSteps(0.01, 0.01, 0.1);
+
+	
+
+        /*PlaneStimulusCellFactory<CellToRORddynClmidFromCellML,2> cell_factory(0.0);
+        TrianglesMeshReader<2,2> reader("mesh/test/data/2D_0_to_1mm_400_elements");
+        DistributedTetrahedralMesh<2,2> mesh;
+        mesh.ConstructFromMeshReader(reader);*/
+		
 		// Original bidomain bath code
 		std::set<unsigned> tissue_ids;
         static unsigned tissue_id=0;
@@ -117,6 +128,18 @@ public: // Tests should be public!
                 iter->SetAttribute(tissue_id);
 				}
 			}
+			else if (sqrt((x-0.7)*(x-0.7) + (y-0.2)*(y-0.2)) < 0.105) 
+            {
+                if (sqrt((x-0.7)*(x-0.7) + (y-0.2)*(y-0.2)) < 0.065)
+				{	
+				iter->SetAttribute(bath_id1);
+				}
+				else
+				{	
+				//IDs default to 0, but we want to be safe
+                iter->SetAttribute(tissue_id);
+				}
+			}
             else
             {
                 //Outside circle on the bottom
@@ -134,7 +157,7 @@ public: // Tests should be public!
 		
         // For default conductivities and explicit cell model -1e4 is under threshold, -1.4e4 too high - crashes the cell model
         // For heterogeneous conductivities as given, -1e4 is under threshold
-        double magnitude = -0.0e3; // uA/cm^2
+        double magnitude = -14.0e3; // uA/cm^2
         double start_time = 0.0;
         double duration = 1; //ms
 		

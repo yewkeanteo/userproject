@@ -17,7 +17,7 @@ private:
 public:
     CustomCellFactory()
         : AbstractCardiacCellFactory<2>(), 
-          mpStimulus(new SimpleStimulus(-5e5, 2))
+          mpStimulus(new SimpleStimulus(-0, 2))
     {
     }
 
@@ -32,7 +32,7 @@ public:
 			{
 			if ((x>0.21+1e-6) && (y>0.19+1e-6))
 				{
-				p_cell = new CellToRORddynClmidFromCellMLCvode(p_empty_solver, mpStimulus);
+				p_cell = new CellToRORddynClmidFromCellMLCvode(p_empty_solver, mpZeroStimulus);
 				}
 			else
 				{
@@ -50,7 +50,7 @@ public:
 		else
 		{
 			//Change conductance of cell factory (right side)
-			p_cell->SetParameter("membrane_fast_sodium_current_conductance", 0);
+			//p_cell->SetParameter("membrane_fast_sodium_current_conductance", 0);
 		}
         return p_cell;
     }
@@ -69,11 +69,19 @@ public: // Tests should be public!
         HeartConfig::Instance()->SetOutputUsingOriginalNodeOrdering(true);
 		
         HeartConfig::Instance()->SetSimulationDuration(1000.0);  //ms
-        HeartConfig::Instance()->SetOutputDirectory("IntraZero2BCB1000");
-        HeartConfig::Instance()->SetOutputFilenamePrefix("IntraZero2BCB1000");
+        HeartConfig::Instance()->SetOutputDirectory("Normal2BCB1000-20");
+        HeartConfig::Instance()->SetOutputFilenamePrefix("Normal2BCB1000-20");
 		HeartConfig::Instance()->SetVisualizeWithVtk(true);
 		
 		HeartConfig::Instance()->SetOdePdeAndPrintingTimeSteps(0.01, 0.01, 0.1);
+
+	
+
+        /*PlaneStimulusCellFactory<CellToRORddynClmidFromCellML,2> cell_factory(0.0);
+        TrianglesMeshReader<2,2> reader("mesh/test/data/2D_0_to_1mm_400_elements");
+        DistributedTetrahedralMesh<2,2> mesh;
+        mesh.ConstructFromMeshReader(reader);*/
+		
 		// Original bidomain bath code
 		std::set<unsigned> tissue_ids;
         static unsigned tissue_id=0;
@@ -134,7 +142,7 @@ public: // Tests should be public!
 		
         // For default conductivities and explicit cell model -1e4 is under threshold, -1.4e4 too high - crashes the cell model
         // For heterogeneous conductivities as given, -1e4 is under threshold
-        double magnitude = -0.0e3; // uA/cm^2
+        double magnitude = -20.0e3; // uA/cm^2
         double start_time = 0.0;
         double duration = 1; //ms
 		

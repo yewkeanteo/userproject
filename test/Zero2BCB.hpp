@@ -32,7 +32,7 @@ public:
 			{
 			if ((x>0.21+1e-6) && (y>0.19+1e-6))
 				{
-				p_cell = new CellToRORddynClmidFromCellMLCvode(p_empty_solver, mpStimulus);
+				p_cell = new CellToRORddynClmidFromCellMLCvode(p_empty_solver, mpZeroStimulus);
 				}
 			else
 				{
@@ -69,8 +69,8 @@ public: // Tests should be public!
         HeartConfig::Instance()->SetOutputUsingOriginalNodeOrdering(true);
 		
         HeartConfig::Instance()->SetSimulationDuration(1000.0);  //ms
-        HeartConfig::Instance()->SetOutputDirectory("IntraZero2BCB1000");
-        HeartConfig::Instance()->SetOutputFilenamePrefix("IntraZero2BCB1000");
+        HeartConfig::Instance()->SetOutputDirectory("Zero2BCB1000-14");
+        HeartConfig::Instance()->SetOutputFilenamePrefix("Zero2BCB1000-14");
 		HeartConfig::Instance()->SetVisualizeWithVtk(true);
 		
 		HeartConfig::Instance()->SetOdePdeAndPrintingTimeSteps(0.01, 0.01, 0.1);
@@ -134,7 +134,7 @@ public: // Tests should be public!
 		
         // For default conductivities and explicit cell model -1e4 is under threshold, -1.4e4 too high - crashes the cell model
         // For heterogeneous conductivities as given, -1e4 is under threshold
-        double magnitude = -0.0e3; // uA/cm^2
+        double magnitude = -14.0e3; // uA/cm^2
         double start_time = 0.0;
         double duration = 1; //ms
 		
