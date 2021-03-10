@@ -71,9 +71,9 @@ public: // Tests should be public!
         double h=0.0005;
         mesh.ConstructRegularSlabMesh(h, 0.0375 /*length*/, 0.016 /*width*/);
         HeartConfig::Instance()->SetOutputUsingOriginalNodeOrdering(true);
-        HeartConfig::Instance()->SetSimulationDuration(1000.0);  //ms
-        HeartConfig::Instance()->SetOutputDirectory("ScaledEZ3BCB1000");
-        HeartConfig::Instance()->SetOutputFilenamePrefix("ScaledEZ3BCB1000");
+        HeartConfig::Instance()->SetSimulationDuration(500.0);  //ms
+        HeartConfig::Instance()->SetOutputDirectory("ScaledEZ3BCB500");
+        HeartConfig::Instance()->SetOutputFilenamePrefix("ScaledEZ3BCB500");
 		HeartConfig::Instance()->SetVisualizeWithVtk(true);
 		
 		HeartConfig::Instance()->SetOdePdeAndPrintingTimeSteps(0.01, 0.01, 0.1);
@@ -148,7 +148,7 @@ public: // Tests should be public!
 		
         // For default conductivities and explicit cell model -1e4 is under threshold, -1.4e4 too high - crashes the cell model
         // For heterogeneous conductivities as given, -1e4 is under threshold
-        double magnitude = -27.5e3; // uA/cm^2
+        double magnitude = -45e3; // uA/cm^2
         double start_time = 0.0;
         double duration = 1; //ms
 		

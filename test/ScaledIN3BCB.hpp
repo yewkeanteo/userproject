@@ -17,7 +17,7 @@ private:
 public:
     CustomCellFactory()
         : AbstractCardiacCellFactory<2>(), 
-          mpStimulus(new SimpleStimulus(-80e5, 2))
+          mpStimulus(new SimpleStimulus(-700e4, 2))
     {
     }
 
@@ -74,9 +74,9 @@ public: // Tests should be public!
         double h=0.0005;
         mesh.ConstructRegularSlabMesh(h, 0.0375 /*length*/, 0.016 /*width*/);
         HeartConfig::Instance()->SetOutputUsingOriginalNodeOrdering(true);
-        HeartConfig::Instance()->SetSimulationDuration(1000.0);  //ms
-        HeartConfig::Instance()->SetOutputDirectory("ScaledIN3BCB1000");
-        HeartConfig::Instance()->SetOutputFilenamePrefix("ScaledIN3BCB1000");
+        HeartConfig::Instance()->SetSimulationDuration(500.0);  //ms
+        HeartConfig::Instance()->SetOutputDirectory("ScaledIN3BCB500");
+        HeartConfig::Instance()->SetOutputFilenamePrefix("ScaledIN3BCB500");
 		HeartConfig::Instance()->SetVisualizeWithVtk(true);
 		
 		HeartConfig::Instance()->SetOdePdeAndPrintingTimeSteps(0.01, 0.01, 0.1);

@@ -13,10 +13,10 @@
 class TestPropagationPropertiesCalculator : public CxxTest::TestSuite
 {
 public:
-     void TestConductionBidomain3D()
+     void TestConductionBidomain2D()
 	 {
-		unsigned lhs_index = 262;
-        unsigned rhs_index = 270;
+		unsigned lhs_index = 1004;
+        unsigned rhs_index = 1019;
 		//unsigned lhs_2_index = 424;
         //unsigned rhs_2_index = 434;
 		//unsigned lhs_3_index = 425;
@@ -26,11 +26,11 @@ public:
 		//unsigned lhs_5_index = 427;
         //unsigned rhs_5_index = 437;
 		
-		Hdf5DataReader simulation_data("projects/userproject/Results/Scaled2BCB/ScaledEN2BCB1000",
-                                       "ScaledEN2BCB1000", false);
+		Hdf5DataReader simulation_data("projects/userproject/Results/Scaled2BCB/ScaledEZ2BCB500",
+                                       "ScaledEZ2BCB500", false);
         PropagationPropertiesCalculator ppc(&simulation_data);
 		//ppc.CalculateConductionVelocity(middle_index,rhs_index,0.1);
-		std::cout << "The normal conduction velocity between Node 262 and Node 270 is "<<ppc.CalculateConductionVelocity(lhs_index,rhs_index,0.008) << "\n";
+		std::cout << "The normal conduction velocity between Node 1004 and Node 1019 is "<<ppc.CalculateConductionVelocity(lhs_index,rhs_index,0.0075) << "\n";
 		//std::cout << "The normal conduction velocity between Node 424 and Node 434 is "<<ppc.CalculateConductionVelocity(lhs_2_index,rhs_2_index,0.2) << "\n";
 		//std::cout << "The normal conduction velocity between Node 425 and Node 435 is "<<ppc.CalculateConductionVelocity(lhs_3_index,rhs_3_index,0.2) << "\n";
 		//std::cout << "The normal conduction velocity between Node 426 and Node 436 is "<<ppc.CalculateConductionVelocity(lhs_4_index,rhs_4_index,0.2) << "\n";

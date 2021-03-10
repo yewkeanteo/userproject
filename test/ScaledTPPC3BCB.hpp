@@ -26,8 +26,8 @@ public:
 		//unsigned lhs_5_index = 427;
         //unsigned rhs_5_index = 437;
 		
-		Hdf5DataReader simulation_data("projects/userproject/Results/Scaled2BCB/ScaledEN3BCB500",
-                                       "ScaledEN3BCB500", false);
+		Hdf5DataReader simulation_data("projects/userproject/Results/Scaled3BCB/ScaledEZ3BCB500",
+                                       "ScaledEZ3BCB500", false);
         PropagationPropertiesCalculator ppc(&simulation_data);
 		//ppc.CalculateConductionVelocity(middle_index,rhs_index,0.1);
 		std::cout << "The normal conduction velocity between Node 1244 and Node 1274 is "<<ppc.CalculateConductionVelocity(lhs_index,rhs_index,0.015) << "\n";
