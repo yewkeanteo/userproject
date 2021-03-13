@@ -50,4 +50,6 @@ ScaledEZ3BCB.hpp
 ScaledIN3BCB.hpp
 ScaledIZ3BCB.hpp
 ScaledTPPC3BCB.hpp
+ScaledIN20BCB.hpp
+ScaledIN10BCB.hpp
 

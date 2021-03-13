@@ -28,9 +28,9 @@ public:
 
         double x = pNode->rGetLocation()[0];
         double y = pNode->rGetLocation()[1];
-         if ((x<0.0081) && (y<0.0081))
+         if ((x<0.00801) && (y<0.00801))
 			{
-			if ((x>0.0079) && (y>0.0079))
+			if ((x>0.00799) && (y>0.00799))
 				{
 				p_cell = new CellToRORddynClmidFromCellMLCvode(p_empty_solver, mpStimulus);
 				}
@@ -67,12 +67,12 @@ public: // Tests should be public!
         double h=0.0005;
         mesh.ConstructRegularSlabMesh(h, 0.03 /*length*/, 0.016 /*width*/);
         HeartConfig::Instance()->SetOutputUsingOriginalNodeOrdering(true);
-        HeartConfig::Instance()->SetSimulationDuration(500.0);  //ms
-        HeartConfig::Instance()->SetOutputDirectory("ScaledIZ2BCB500");
-        HeartConfig::Instance()->SetOutputFilenamePrefix("ScaledIZ2BCB500");
+        HeartConfig::Instance()->SetSimulationDuration(100.0);  //ms
+        HeartConfig::Instance()->SetOutputDirectory("ScaledIZ2BCB100");
+        HeartConfig::Instance()->SetOutputFilenamePrefix("ScaledIZ2BCB100");
 		HeartConfig::Instance()->SetVisualizeWithVtk(true);
 		
-		HeartConfig::Instance()->SetOdePdeAndPrintingTimeSteps(0.01, 0.01, 0.1);
+		HeartConfig::Instance()->SetOdePdeAndPrintingTimeSteps(0.001, 0.001, 0.001);
 
 		// Original bidomain bath code
 		std::set<unsigned> tissue_ids;
@@ -93,7 +93,7 @@ public: // Tests should be public!
             double y = iter->CalculateCentroid()[1];
             if (sqrt((x-0.01125)*(x-0.01125) + (y-0.008)*(y-0.008)) < 0.004) 
             {
-                if (sqrt((x-0.01125)*(x-0.01125) + (y-0.008)*(y-0.008)) < 0.002)
+                if (sqrt((x-0.01125)*(x-0.01125) + (y-0.008)*(y-0.008)) < 0.0025)
 				{	
 				iter->SetAttribute(bath_id1);
 				}
@@ -105,7 +105,7 @@ public: // Tests should be public!
 			}
 			else if (sqrt((x-0.01875)*(x-0.01875) + (y-0.008)*(y-0.008)) < 0.004) 
             {
-                if (sqrt((x-0.01875)*(x-0.01875) + (y-0.008)*(y-0.008)) < 0.002)
+                if (sqrt((x-0.01875)*(x-0.01875) + (y-0.008)*(y-0.008)) < 0.0025)
 				{	
 				iter->SetAttribute(bath_id1);
 				}
