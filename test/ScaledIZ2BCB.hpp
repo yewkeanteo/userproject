@@ -72,7 +72,7 @@ public: // Tests should be public!
         HeartConfig::Instance()->SetOutputFilenamePrefix("ScaledIZ2BCB100");
 		HeartConfig::Instance()->SetVisualizeWithVtk(true);
 		
-		HeartConfig::Instance()->SetOdePdeAndPrintingTimeSteps(0.001, 0.001, 0.001);
+		HeartConfig::Instance()->SetOdePdeAndPrintingTimeSteps(0.01, 0.01, 0.01);
 
 		// Original bidomain bath code
 		std::set<unsigned> tissue_ids;
