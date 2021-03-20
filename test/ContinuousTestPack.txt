@@ -62,8 +62,9 @@ ScaledEN20BCB.hpp
 ScaledEZ20BCB.hpp
 ScaledIN10BCB.hpp
 ScaledTPPC20BCB.hpp
-5BlockScaledEN20BCB.hpp
-10BlockScaledEN20BCB.hpp
-15BlockScaledEN20BCB.hpp
-
-
+NoBlockScaledEZ20.hpp
+05BlockScaledEZ20.hpp
+10BlockScaledEZ20.hpp
+NoBlockScaledIZ20.hpp
+05BlockScaledIZ20.hpp
+10BlockScaledIZ20.hpp
