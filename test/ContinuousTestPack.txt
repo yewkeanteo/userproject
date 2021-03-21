@@ -68,3 +68,8 @@ NoBlockScaledEZ20.hpp
 NoBlockScaledIZ20.hpp
 05BlockScaledIZ20.hpp
 10BlockScaledIZ20.hpp
+RandomScaledIZ20.hpp
+Random75ScaledIZ20.hpp
+Random25ScaledEZ20.hpp
+Random50ScaledEZ20.hpp
+Random75ScaledEZ20.hpp

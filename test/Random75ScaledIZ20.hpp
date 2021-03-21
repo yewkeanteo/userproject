@@ -26,7 +26,7 @@ public:
           mpStimulus(new SimpleStimulus(-1500e4, 2))
     {
 		std::default_random_engine generator;
-        std::bernoulli_distribution distribution(0.25);
+        std::bernoulli_distribution distribution(0.75);
 		
 		for (unsigned i = 0u; i < 10922 ; ++i)
 		{
@@ -98,8 +98,8 @@ public: // Tests should be public!
         mesh.ConstructRegularSlabMesh(h, 0.165 /*length*/, 0.016 /*width*/);
         HeartConfig::Instance()->SetOutputUsingOriginalNodeOrdering(true);
         HeartConfig::Instance()->SetSimulationDuration(100.0);  //ms
-        HeartConfig::Instance()->SetOutputDirectory("Random25ScaledIZ20");
-        HeartConfig::Instance()->SetOutputFilenamePrefix("Random25ScaledIZ20");
+        HeartConfig::Instance()->SetOutputDirectory("Random75ScaledIZ20");
+        HeartConfig::Instance()->SetOutputFilenamePrefix("Random75ScaledIZ20");
 		HeartConfig::Instance()->SetVisualizeWithVtk(true);
 		
 		HeartConfig::Instance()->SetOdePdeAndPrintingTimeSteps(0.01, 0.01, 0.1);

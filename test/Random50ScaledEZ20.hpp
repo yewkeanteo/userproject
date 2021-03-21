@@ -23,10 +23,10 @@ public:
     
 	CustomCellFactory()
         : AbstractCardiacCellFactory<2>(), 
-          mpStimulus(new SimpleStimulus(-1500e4, 2))
+          mpStimulus(new SimpleStimulus(-0e4, 2))
     {
 		std::default_random_engine generator;
-        std::bernoulli_distribution distribution(0.25);
+        std::bernoulli_distribution distribution(0.5);
 		
 		for (unsigned i = 0u; i < 10922 ; ++i)
 		{
@@ -98,8 +98,8 @@ public: // Tests should be public!
         mesh.ConstructRegularSlabMesh(h, 0.165 /*length*/, 0.016 /*width*/);
         HeartConfig::Instance()->SetOutputUsingOriginalNodeOrdering(true);
         HeartConfig::Instance()->SetSimulationDuration(100.0);  //ms
-        HeartConfig::Instance()->SetOutputDirectory("Random25ScaledIZ20");
-        HeartConfig::Instance()->SetOutputFilenamePrefix("Random25ScaledIZ20");
+        HeartConfig::Instance()->SetOutputDirectory("Random50ScaledEZ20");
+        HeartConfig::Instance()->SetOutputFilenamePrefix("Random50ScaledEZ20");
 		HeartConfig::Instance()->SetVisualizeWithVtk(true);
 		
 		HeartConfig::Instance()->SetOdePdeAndPrintingTimeSteps(0.01, 0.01, 0.1);
@@ -378,7 +378,7 @@ public: // Tests should be public!
 		
         // For default conductivities and explicit cell model -1e4 is under threshold, -1.4e4 too high - crashes the cell model
         // For heterogeneous conductivities as given, -1e4 is under threshold
-        double magnitude = -0.0e3; // uA/cm^2
+        double magnitude = -14.0e3; // uA/cm^2
         double start_time = 0.0;
         double duration = 1; //ms
 		
